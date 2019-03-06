@@ -20,6 +20,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
     def test_001_get_ratio(self):
         """
         - check calculation of ratio between original image size and inputted
+        - no image files will not be tested because of Django ImageField
         :return:
         """
         ratio = ut.get_ratio(self.big_img, '800x600')
