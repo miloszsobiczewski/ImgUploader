@@ -60,8 +60,7 @@ def gd_upload(drive, img_url):
     :return:
     """
     # remove /
-    if img_url[0] == '/':
-        img_url = img_url[1:]
+    img_url = clean_path(img_url)
     try:
         with drive.CreateFile({'title': img_url.split('/')[-1],
                                  "parents": [{
@@ -83,7 +82,7 @@ def get_gd_file_details(drive, img_url):
     :return: uploaded file details
     """
     # get exact file name
-    img_name = img_url.split('/')[-1]
+    img_name = get_file_name(img_url)
     # search for file details
     file = drive.ListFile({'q': "trashed=false and title='%s'" % img_name}
                                ).GetList()[0]
@@ -95,3 +94,24 @@ def get_gd_file_details(drive, img_url):
         'fileSize': file['fileSize']
     }
     return detl
+
+
+def gd_delete(drive, img_gd_id):
+
+    try:
+        with drive.CreateFile({'id': id}) as file:
+            file.Trash()
+            return True
+    except:
+        return False
+
+
+def clean_path(path):
+    if path[0] == '/':
+        path = path[1:]
+    return path
+
+
+def get_file_name(path):
+    name = path.split('/')[-1]
+    return name

@@ -55,6 +55,8 @@ class ImgUploaderUnitTests(unittest.TestCase):
         stat = os.stat(self.small_img_url)
         print('test_003_gd_upload', detl['fileSize'], stat.st_size)
         self.assertEqual(int(detl['fileSize']), stat.st_size)
+        # delete GD file
+        ut.gd_delete(drive, detl['id'])
 
     @classmethod
     def tearDownClass(self):
