@@ -18,13 +18,20 @@ class ImgUploaderUnitTests(unittest.TestCase):
         self.big_img = Image.open(self.big_img_url)
 
     def test_001_get_ratio(self):
-
+        """
+        - check calculation of ratio between original image size and inputted
+        :return:
+        """
         ratio = ut.get_ratio(self.big_img, '800x600')
         print('test_001_get_ratio', ratio)
         self.assertGreater(ratio, 0)
 
     def test_002_save_img(self):
-
+        """
+        - check if big files are resized correctly
+        - check if small files are not resized
+        :return:
+        """
         # resize big image
         ratio = ut.get_ratio(self.big_img, '800x600')
         new_size = ut.save_img(self.big_img, self.big_img_save_url, ratio)
@@ -36,6 +43,18 @@ class ImgUploaderUnitTests(unittest.TestCase):
         new_size = ut.save_img(self.small_img, self.small_img_save_url, ratio)
         print('test_002_resizing 800x600', new_size)
         self.assertTrue(new_size[0] < 800 and new_size[1] < 600)
+
+    def test_003_gd_upload(self):
+        """
+        - compare file size before and after GD upload
+        :return:
+        """
+        drive = ut.gd_connect()
+        ut.gd_upload(drive, self.small_img_url)
+        detl = ut.get_gd_file_details(drive, self.small_img_url)
+        stat = os.stat(self.small_img_url)
+        print('test_003_gd_upload', detl['fileSize'], stat.st_size)
+        self.assertEqual(int(detl['fileSize']), stat.st_size)
 
     @classmethod
     def tearDownClass(self):
