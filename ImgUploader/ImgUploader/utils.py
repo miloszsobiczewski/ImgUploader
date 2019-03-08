@@ -20,12 +20,10 @@ def save_img(img, img_save_url, ratio):
     if ratio < 1:
         img = img.resize((int(ratio * size[0]), int(ratio * size[1])),
                          Image.ANTIALIAS)
-        img.save(img_save_url)
         res = True
     else:
-
-        img.save(img_save_url)
         res = False
+    img.save(img_save_url)
     return res
 
 

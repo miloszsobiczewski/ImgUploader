@@ -4,7 +4,6 @@ from PIL import Image
 from .forms import ImageForm
 from . import utils as ut
 from .settings import BASE_DIR
-import pdb
 
 
 def main(request):
@@ -36,11 +35,12 @@ def main(request):
                 del msg['1']
 
             # get upload type
-            upload_type = imageform.cleaned_data['type']
+            upload_type = imageform.cleaned_data['location']
 
             if upload_type == 'local':
                 msg['2'] = 'Image was successfully saved to local drive. ' \
                            'DB id: %s ; location: ' % instance.pk
+                # location as hyperlink. msg[3] has different style.
                 msg['3'] = 'file:///%s%s' % (BASE_DIR, instance.slug)
             elif upload_type == 'Google Drive':
                 # connect to GD, upload, get details

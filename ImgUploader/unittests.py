@@ -19,7 +19,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
 
     def test_001_get_ratio(self):
         """
-        - check calculation of ratio between original image size and inputted
+        - check calculation of ratio between original image size and inputed
         - no image files will not be tested because of Django ImageField
         :return:
         """
@@ -61,7 +61,6 @@ class ImgUploaderUnitTests(unittest.TestCase):
         print('test_003_gd_upload', detl['fileSize'], stat.st_size)
         self.assertEqual(int(detl['fileSize']), stat.st_size)
         # delete GD file
-        pdb.set_trace()
         ut.gd_delete(drive, detl['id'])
 
     @classmethod
