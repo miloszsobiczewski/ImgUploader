@@ -14,7 +14,7 @@ def get_ratio(img, resolution):
     return ratio
 
 
-def save_img(img, img_save_url, ratio):
+def save_reduced_img(img, img_save_url, ratio):
 
     size = img.size
     if ratio < 1:

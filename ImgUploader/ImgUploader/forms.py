@@ -10,7 +10,7 @@ class ImageForm(forms.ModelForm):
 
     class Meta:
         model = models.Image
-        fields = ['location', 'size', 'picture']
+        fields = ['location', 'picture', 'size']
 
 
 

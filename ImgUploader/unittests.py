@@ -26,7 +26,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
         print('test_001_get_ratio', ratio)
         self.assertGreater(ratio, 0)
 
-    def test_002_save_img(self):
+    def test_002_save_reduced_img(self):
         """
         - check if big files are resized correctly
         - check if small files are not resized
@@ -34,7 +34,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
         """
         # resize big image
         ratio = ut.get_ratio(self.big_img, '800x600')
-        ut.save_img(self.big_img, self.big_img_save_url, ratio)
+        ut.save_reduced_img(self.big_img, self.big_img_save_url, ratio)
         self.big_img.close()
         new_size = Image.open(self.big_img_save_url).size
         print('test_002_resizing 800x600', new_size)
@@ -49,7 +49,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
 
         # do not resize image
         ratio = ut.get_ratio(self.small_img, '800x600')
-        ut.save_img(self.small_img, self.small_img_save_url, ratio)
+        ut.save_reduced_img(self.small_img, self.small_img_save_url, ratio)
         self.small_img.close()
         new_size = Image.open(self.small_img_save_url).size
         print('test_002_resizing 800x600', new_size)

@@ -7,7 +7,7 @@ class Image(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=13)
     size = models.CharField(max_length=9)
-    slug = models.CharField(max_length=100)
+    url = models.CharField(max_length=100)
     picture = models.ImageField(default='jeep.png', blank=True)
 
     def __str__(self):
