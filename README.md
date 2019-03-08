@@ -5,7 +5,7 @@ Please clone this GIT repository
 ```buildoutcfg
 git clone https://gitlab.com/miloszsobiczewski/imguploader.git/
 ```
-Then just run
+Change directory to _imguploader_ and just run
 ```buildoutcfg
 sudo docker-compose up
 ```
