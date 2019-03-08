@@ -1,6 +1,8 @@
 from PIL import Image
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+import pdb
+import time
 
 
 def get_ratio(img, resolution):
@@ -22,11 +24,12 @@ def save_img(img, img_save_url, ratio):
         img = img.resize((int(ratio * size[0]), int(ratio * size[1])),
                          Image.ANTIALIAS)
         img.save(img_save_url)
+        res = True
     else:
+
         img.save(img_save_url)
-    new_size = Image.open(img_save_url).size
-    img.close()
-    return new_size
+        res = False
+    return res
 
 
 def gd_connect(config="mycreds.txt"):
@@ -61,17 +64,17 @@ def gd_upload(drive, img_url):
     """
     # remove /
     img_url = clean_path(img_url)
-    try:
-        with drive.CreateFile({'title': img_url.split('/')[-1],
-                                 "parents": [{
-                                     "kind": "drive#fileLink",
-                                     "id": '1w7hKYp3uwDGqprNsoic_Yo0_XRCDiu4v'
-                                 }]}) as file:
-            file.SetContentFile(img_url)
-            file.Upload()
-            return True
-    except:
-        return False
+    img_name = get_file_name(img_url)
+    file = drive.CreateFile({'title': img_name,
+                             "parents": [{
+                             "kind": "drive#fileLink",
+                             "id": '1w7hKYp3uwDGqprNsoic_Yo0_XRCDiu4v'
+                             }]})
+    file.SetContentFile(img_url)
+    file.Upload()
+    # pdb.set_trace()
+    res = get_gd_file_details(drive, img_url)
+    return True if res else False
 
 
 def get_gd_file_details(drive, img_url):

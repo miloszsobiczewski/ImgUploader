@@ -35,13 +35,17 @@ class ImgUploaderUnitTests(unittest.TestCase):
         """
         # resize big image
         ratio = ut.get_ratio(self.big_img, '800x600')
-        new_size = ut.save_img(self.big_img, self.big_img_save_url, ratio)
+        ut.save_img(self.big_img, self.big_img_save_url, ratio)
+        self.big_img.close()
+        new_size = Image.open(self.big_img_save_url).size
         print('test_002_resizing 800x600', new_size)
         self.assertTrue(new_size[0] == 800 or new_size[1] == 600)
 
         # do not resize image
         ratio = ut.get_ratio(self.small_img, '800x600')
-        new_size = ut.save_img(self.small_img, self.small_img_save_url, ratio)
+        ut.save_img(self.small_img, self.small_img_save_url, ratio)
+        self.small_img.close()
+        new_size = Image.open(self.small_img_save_url).size
         print('test_002_resizing 800x600', new_size)
         self.assertTrue(new_size[0] < 800 and new_size[1] < 600)
 

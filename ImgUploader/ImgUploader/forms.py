@@ -4,7 +4,7 @@ from . import models
 
 class ImageForm(forms.ModelForm):
     type = forms.ChoiceField(
-        choices=[(x, x) for x in ['local', 'Google Drive']], required=True)
+        choices=[(x, x) for x in ['Google Drive', 'local']], required=True)
     size = forms.ChoiceField(
         choices=[(x, x) for x in ['800x600', '480x640']], required=True)
 

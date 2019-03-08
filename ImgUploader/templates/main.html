@@ -1,10 +1,31 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>ImgUploader</title>
+    <link rel="stylesheet" href="{% static 'new_styles.css' %}">
 </head>
 <body>
-    <h1>ImgUploader</h1>
+    <center>
+        <H1>ImgUploader</H1>
+        <div class="msg">
+            <p>{{ msg.1 }}</p>
+            <p>{{ msg.2 }}</p>
+            <a href="{{ msg.3 }}">{{ msg.3 }}</a>
+        </div>
+        <br>
+        <img src="/static/image.svg" height="40"/>
+        <div>
+            <form class="img-form" method="post" action="{% url 'main' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ imageform }}
+                <input type="submit" value="Upload" name="Upload"/>
+            </form>
+        </div>
+
+    </center>
+
 </body>
 </html>
