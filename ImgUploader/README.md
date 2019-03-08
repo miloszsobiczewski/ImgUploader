@@ -45,11 +45,12 @@ Google Drive API enabled.
 ### Picture compression
 Uploading picture is compressed by resizing it to one of the available  
 formats: 800x600 or 480x640. Each picture is checked for its pixel dimension
-and reduced to match overall proportions. Smaller images are not changed.
+and reduced to preserve proportions of source image. Smaller images are not 
+changed.
 
 Example:
-* picture_1 of size 800x1000 in case of 800x600 "Size" selection is reduced by 
-60% to 480x600 pixels.
+* picture_1 of size __800x1000__ in case of _800x600_ "Size" selection is reduced by 
+60% to __480x600__ pixels.
 * picture_2 of size 200x200 will not be changed no mather what "Size"
 option will be selected.
 
