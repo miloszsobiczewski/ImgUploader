@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  img-uploader:
+    build: ./ImgUploader
+    volumes:
+      - ./ImgUploader:/user/src/app
+    ports:
+      - "8000:8000"
+    command: >
+      python manage.py runserver 0.0.0.0:8000
