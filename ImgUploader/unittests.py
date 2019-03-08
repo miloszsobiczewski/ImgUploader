@@ -61,6 +61,7 @@ class ImgUploaderUnitTests(unittest.TestCase):
         print('test_003_gd_upload', detl['fileSize'], stat.st_size)
         self.assertEqual(int(detl['fileSize']), stat.st_size)
         # delete GD file
+        pdb.set_trace()
         ut.gd_delete(drive, detl['id'])
 
     @classmethod
@@ -69,7 +70,6 @@ class ImgUploaderUnitTests(unittest.TestCase):
         # remove copies files
         os.remove(self.small_img_save_url)
         os.remove(self.big_img_save_url)
-        pass
 
 
 if __name__ == '__main__':

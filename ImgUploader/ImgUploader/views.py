@@ -6,6 +6,7 @@ from . import utils as ut
 from .settings import BASE_DIR
 import pdb
 
+
 def main(request):
     """
     Main and only django webpage view containing upload form
@@ -44,9 +45,9 @@ def main(request):
             elif upload_type == 'Google Drive':
                 # connect to GD, upload, get details
                 drive = ut.gd_connect()
-                res = ut.gd_upload(drive, url)
-                if res:
-                    detl = ut.get_gd_file_details(drive, url)
+                ut.gd_upload(drive, url)
+                detl = ut.get_gd_file_details(drive, url)
+                if detl:
                     # delete local file copy
                     os.remove(url)
                     # update DB slug
@@ -56,8 +57,6 @@ def main(request):
                         'Image was successfully saved to Google Drive ' \
                         'storage. DB id: %s ; link: ' % instance.pk
                     msg['3'] = '%s' % instance.slug
-                    # delete local file copy
-                    # os.remove(url)
                 else:
                     msg['2'] = 'Google Drive upload failed.'
             else:

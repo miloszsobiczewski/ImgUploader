@@ -1,8 +1,6 @@
 from PIL import Image
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
-import pdb
-import time
 
 
 def get_ratio(img, resolution):
@@ -19,7 +17,6 @@ def get_ratio(img, resolution):
 def save_img(img, img_save_url, ratio):
 
     size = img.size
-    # pdb.set_trace()
     if ratio < 1:
         img = img.resize((int(ratio * size[0]), int(ratio * size[1])),
                          Image.ANTIALIAS)
@@ -65,16 +62,14 @@ def gd_upload(drive, img_url):
     # remove /
     img_url = clean_path(img_url)
     img_name = get_file_name(img_url)
-    file = drive.CreateFile({'title': img_name,
-                             "parents": [{
-                             "kind": "drive#fileLink",
-                             "id": '1w7hKYp3uwDGqprNsoic_Yo0_XRCDiu4v'
-                             }]})
+    dic = {'title': img_name,
+           "parents": [{
+               "kind": "drive#fileLink",
+               "id": '1w7hKYp3uwDGqprNsoic_Yo0_XRCDiu4v'}
+           ]}
+    file = drive.CreateFile(dic)
     file.SetContentFile(img_url)
     file.Upload()
-    # pdb.set_trace()
-    res = get_gd_file_details(drive, img_url)
-    return True if res else False
 
 
 def get_gd_file_details(drive, img_url):
@@ -101,12 +96,8 @@ def get_gd_file_details(drive, img_url):
 
 def gd_delete(drive, img_gd_id):
 
-    try:
-        with drive.CreateFile({'id': id}) as file:
-            file.Trash()
-            return True
-    except:
-        return False
+    file = drive.CreateFile({'id': img_gd_id})
+    file.Trash()
 
 
 def clean_path(path):
